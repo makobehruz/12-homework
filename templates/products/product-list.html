@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Mahsulotlar Ro'yxati {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a href="{% url 'products:category' '1' %}" class="nav-link {% if '1' in request.path %}active{% endif %}">Elektronika</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'products:category' '2' %}" class="nav-link {% if '2' in request.path %}active{% endif %}">Kiyim-kechak</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'products:category' '3' %}" class="nav-link {% if '3' in request.path %}active{% endif %}">Oziq-ovqat</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'products:category' '4' %}" class="nav-link {% if '4' in request.path %}active{% endif %}">Uy-ro'zg'or buyumlari</a>
+        </li>
+    </ul>
+    {% for products in products %}
+        <div class="container mt-4 flex-grow-1">
+            <h1>Mahsulotlar Ro'yxati</h1>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ products.image.url }}" class="card-img-top" alt="products">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ products.nomi }}</h5>
+                            <p class="card-text">{{ products.tavsif }}</p>
+                            <a href="{% url 'products:detail' pk=products.pk %}" class="btn btn-primary">Batafsil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <h3>Hozircha mahsulot yo'q</h3>
+    {% endfor %}
+{% endblock %}
